@@ -18,26 +18,25 @@ During the Piscine, I learned to:
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
-Here’s the overall structure of this repository:
-
+```text
 42-piscine
-├── C00/ # Basics: variables, loops, printing
-├── C01/ # Pointers, arrays, and basic functions
-├── C02/ # String manipulation and function logic
-├── C03/ # Advanced string functions
-├── C04/ # Recursion, algorithmic thinking
-├── C05/ # Math functions: factorial, power, etc.
-├── C06/ # Program arguments
-├── C07/ # Memory allocation and pointers to pointers
-├── C08/ # Structs and data organization
-├── C09/ # Header files and modular programming
-├── C10/ # File management and I/O
-├── Shell00/ # Basic shell commands
-├── Shell01/ # File permissions and scripting
-└── Exam/ # Exam subjects and my solutions
-
+├── Shell00/      # Basic shell commands
+├── Shell01/      # File permissions and scripting
+├── C00/          # Basics: variables, loops, printing
+├── C01/          # Pointers, arrays, and basic functions
+├── C02/          # String manipulation and function logic
+├── C03/          # Advanced string functions
+├── C04/          # Recursion, algorithmic thinking
+├── C05/          # Math functions: factorial, power, etc.
+├── C06/          # Program arguments
+├── C07/          # Memory allocation and pointers to pointers
+├── C08/          # Structs and data organization
+├── C09/          # Header files and modular programming
+├── C10/          # File management and I/O
+├── Rush00/       # First weekend group project
+```
 ---
 
 _"Born to code, forced to debug."_ 
