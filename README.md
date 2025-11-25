@@ -1,16 +1,20 @@
-42 Projects
+# 42 Projects
 
-Ce dépôt regroupe mes différents projets réalisés dans le cadre du cursus 42.
-Chaque projet possède son propre dossier avec son code et ses instructions.
+This repository gathers my projects completed during the 42 curriculum.  
+Each project has its own folder containing the source code and instructions.
 
-📁 Projets
+## Projects
 
-Libft — Ma première librairie en C regroupant des fonctions essentielles.
-ft_printf — Reproduction de la fonction printf avec les conversions principales.
+- **Libft** — My first C library, regrouping essential functions.  
+- **ft_printf** — A custom implementation of the `printf` function with the main format conversions.
+
+## Repository Structure
 
 42-projects/
- ├── libft/
- ├── ft_printf/
- └── README.md
+├── libft/
+├── ft_printf/
+└── README.md
 
-Màj au fur et à mesure des projets !
+## Updates
+
+This repository will be updated progressively as I complete more projects!
