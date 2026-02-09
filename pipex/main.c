@@ -1,0 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kevlim <kevlim@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/02 11:34:59 by kevlim            #+#    #+#             */
+/*   Updated: 2026/02/05 11:40:09 by kevlim           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "pipex.h"
+
+static void	open_files(char **argv, int *infile, int *outfile)
+{
+	*infile = open(argv[1], O_RDONLY);
+	*outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+}
+
+static void	close_fds(int *fd, int infile, int outfile)
+{
+	close(fd[0]);
+	close(fd[1]);
+	if (infile >= 0)
+		close(infile);
+	if (outfile >= 0)
+		close(outfile);
+}
+
+static int	wait_children(pid_t pid1, pid_t pid2)
+{
+	int	status;
+
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (1);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	int		fd[2];
+	int		infile;
+	int		outfile;
+	pid_t	pid1;
+	pid_t	pid2;
+
+	if (argc != 5)
+		error_exit("Usage: ./pipex file1 cmd1 cmd2 file2");
+	if (pipe(fd) == -1)
+		error_exit("pipe");
+	open_files(argv, &infile, &outfile);
+	pid1 = fork();
+	if (pid1 == 0)
+		first_child(argv, envp, fd, infile);
+	pid2 = fork();
+	if (pid2 == 0)
+		second_child(argv, envp, fd, outfile);
+	close_fds(fd, infile, outfile);
+	return (wait_children(pid1, pid2));
+}
