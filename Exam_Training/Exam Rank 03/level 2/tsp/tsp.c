@@ -62,7 +62,7 @@ int main(void)
 		n++;
 	if (n < 2)
 	{
-		printf("0.00\n");
+		fprintf(stdout, "0.00\n");
 		return (0);
 	}
 	int	path[12];
@@ -75,6 +75,6 @@ int main(void)
 
 	float min_distance = FLT_MAX;
 	find_shortest_path(cities, path, n, 1, &min_distance);
-	printf("%.2f", min_distance);
+	fprintf(stdout, "%.2f", min_distance);
 	return (0);
 }
