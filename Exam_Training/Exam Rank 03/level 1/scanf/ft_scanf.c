@@ -34,75 +34,61 @@ int match_char(FILE *f, char c)
 
 int scan_char(FILE *f, va_list ap)
 {
-	int ch = fgetc(f);
 	char *cp = va_arg(ap, char *);
-
+	int ch = fgetc(f);
 	if (ch == EOF)
 		return -1;
-	*cp = (char)ch;
-	return (1);
+	*cp = ch;
+	return 1;
 }
 
 int scan_int(FILE *f, va_list ap)
 {
-	int ch = fgetc(f);
-	int	sign = 1;
-	int val = 0;
 	int *ip = va_arg(ap, int *);
-	int count = 0;
-
-	if (ch == EOF)
-		return (-1);
-	while (isspace(ch))
-		ch = fgetc(f);
-	if (ch == '-')
+	int ch = fgetc(f);
+	int sign = 1;
+	int val = 0;
+	if (ch == '-' || ch == '+')
 	{
-		sign = -1;
+		if (ch == '-')
+			sign = -1;
 		ch = fgetc(f);
 	}
-	else if (ch == '+')
-		ch = fgetc(f);
 	if (!isdigit(ch))
 	{
-		ungetc(ch ,f);
+		if (ch != EOF)
+			ungetc(ch, f);
 		return -1;
 	}
 	while (isdigit(ch))
 	{
-		val = val * 10 + (ch - '0');
-		count++;
+		val = val * 10 + ch - '0';
 		ch = fgetc(f);
 	}
 	if (ch != EOF)
 		ungetc(ch, f);
-	if (count == 0)
-		return -1;
 	*ip = val * sign;
-	return (1);
+	return 1;
 }
 
 int scan_string(FILE *f, va_list ap)
 {
-	int ch = fgetc(f);
 	char *sp = va_arg(ap, char *);
+	int ch = fgetc(f);
 	int i = 0;
-
-	while (ch != EOF && isspace(ch))
+	while (isspace(ch))
 		ch = fgetc(f);
 	if (ch == EOF)
-		return (-1);
-	do
+		return -1;
+	while (ch != EOF && !isspace(ch))
 	{
-		sp[i] = ch;
-		i++;
+		sp[i++] = ch;
 		ch = fgetc(f);
-	} while (ch != EOF && !isspace(ch));
-	sp[i] = '\0';
+	}
+	sp[i] = 0;
 	if (ch != EOF)
 		ungetc(ch, f);
-	if (i == 0)
-		return -1;
-	return (1);
+	return 1;
 }
 
 
